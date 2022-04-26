@@ -3,10 +3,12 @@ import * as eva from '@eva-design/eva';
 import HomeScreen from './components/HomeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
+import Toast from 'react-native-simple-toast';
 import { View, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 import { ApplicationProvider, Card, Modal, Text, Input, Icon, IconRegistry, Button, useTheme } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { setDefaultUser } from './api/user';
 
 const DefaultNamePrompt = (props) => {
   return (
@@ -26,11 +28,8 @@ const App = () => {
   useEffect(() => {
     const handleLocalStorage = async () => {
       try {
-        await AsyncStorage.clear();
-
         setDeviceId(await AsyncStorage.getItem('@device_id'));
         setDefaultName(await AsyncStorage.getItem('@default_name'));
-
         if (deviceId == null) {
           const newDeviceId = uuid.v4();
           setDeviceId(newDeviceId);
@@ -48,16 +47,25 @@ const App = () => {
   }, [])
 
   const onDefaultNameButtonPress = async () => {
-    try {
-      await AsyncStorage.setItem('@device_id', deviceId);
-      await AsyncStorage.setItem('@default_name', defaultName);
-    }
-    catch (e) {
-      // TODO: Implement error handler
-    }
-
-    // TODO: Send username and gui to API
-    setIsNamePromptVisible(false);
+    setDefaultUser(deviceId, defaultName)
+      .then(response => {
+        if(!response.ok){
+          throw Error('Network response was not ok')
+        }
+        else{
+          try {
+            AsyncStorage.setItem('@device_id', deviceId);
+            AsyncStorage.setItem('@default_name', defaultName);
+          }
+          catch (e) {
+            // TODO: Implement error handler
+          }
+          setIsNamePromptVisible(false);
+        }
+      })
+      .catch(error => {
+        Toast.show(error.toString());
+      })
   }
 
   return (
