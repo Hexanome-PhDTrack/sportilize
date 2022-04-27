@@ -14,7 +14,7 @@ const ProfilePopover = (props) => {
                 <Text style={styles.email}>
                     andrew.huggings@wanadoo.fr
                 </Text>
-                <Button style={styles.button}>
+                <Button style={styles.button} onPress={() => {console.log("bouton")}}>
                     View profile
                 </Button>
                 <Button style={styles.button}>
