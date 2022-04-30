@@ -1,0 +1,12 @@
+
+
+post https://sportilize.herokuapp.com/api/v1/auth/register
+Content-Type: application/json
+
+{
+      "uuid": "uuid",
+      "username": "jestTestRegister",
+      "password": "jestTest123",
+      "email": "tesst@mail.com",
+      "role": "member"
+    }
