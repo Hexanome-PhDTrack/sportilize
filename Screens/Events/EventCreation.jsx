@@ -14,8 +14,6 @@ import {
   SelectItem,
   Datepicker,
 } from "@ui-kitten/components";
-import Footer from "../../components/Footer";
-import Header from "../Header/Header";
 import { CreateAnEvent } from "../../api/Event.js";
 import { useNavigation } from "@react-navigation/native";
 const CreateEvent = () => {

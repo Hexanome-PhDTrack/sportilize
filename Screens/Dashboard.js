@@ -3,7 +3,7 @@ import Map from "./Map/Map";
 import CreateEvent from "./Events/EventCreation";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Header from "./Header/Header";
+import Header from "../components/header/Header";
 import Footer from "../components/Footer";
 import { SafeAreaView } from "react-native";
 
