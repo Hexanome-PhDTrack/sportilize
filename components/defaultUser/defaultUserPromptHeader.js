@@ -6,7 +6,6 @@ export default DefaultUserPromptHeader = () => {
     return (
         <View style={styles.modalHeader}>
             <Text category='h1'>Welcome</Text>
-            <Icon name='close-outline' fill='#000000' style={styles.closeIcon} />
         </View>
     )
 }

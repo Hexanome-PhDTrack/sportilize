@@ -12,10 +12,6 @@ const App = () => {
   const [isDefaultUserPromptVisible, setIsDefaultUserPromptVisible] = useState(false);
 
   useEffect(async () => {
-    try{
-      await AsyncStorage.removeItem('DefaultUser');
-    } catch(e){}
-
     const defaultUserFromStorage = JSON.parse(await AsyncStorage.getItem('DefaultUser'));
     if (!defaultUserFromStorage) {
       setIsDefaultUserPromptVisible(true);
