@@ -69,7 +69,6 @@ const CreateEvent = ({ navigation }) => {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Header />
         <View style={styles.Container}>
           <Image
             style={styles.EventImage}
@@ -161,7 +160,6 @@ const CreateEvent = ({ navigation }) => {
             Confirm
           </Button>
         </View>
-        <Footer navigation={navigation} />
       </ScrollView>
       <TouchableOpacity style={styles.BackBtn}>
         <Icon style={styles.icon} fill="#000" name="arrow-back-outline" />

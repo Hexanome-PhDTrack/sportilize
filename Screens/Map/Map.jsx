@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Layout, Icon } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
 import MapView from "react-native-maps";
-import Header from "../Header/Header";
-import Footer from "../../components/Footer";
+import { Callout } from "react-native-maps";
 import { GetPois } from "../../api/user";
 import Filter from "../../components/Filter";
-import { TouchableOpacity } from "react-native";
-
+import { TouchableOpacity, View, Text } from "react-native";
+import MarkerPopover from "../../components/MarkerPopover";
 const Map = ({ navigation }) => {
   const [ModalVisible, setModalVisible] = useState(false);
   const [Allpois, setAllPois] = useState([]);
@@ -18,14 +17,13 @@ const Map = ({ navigation }) => {
     setDisplayedPois(data.features);
   }, []);
 
-  const filterPois=()=>{
-    // here we filter the data array according to some parameters 
+  const filterPois = () => {
+    // here we filter the data array according to some parameters
     //code will be like : setDisplayedPois(Allpois.filter((p)=>p.properties.theme=="running"))
     // this function should be passed to the filter component and called from there with the filtering parameters
-  }
+  };
   return (
     <Layout style={styles.Container}>
-      <Header />
       <MapView
         style={styles.map}
         initialRegion={{
@@ -44,7 +42,11 @@ const Map = ({ navigation }) => {
             }}
             title={p.properties.nom}
             description={p.properties.soustheme}
-          />
+          >
+            <Callout style={styles.Callout}>
+              <MarkerPopover element={p.properties} />
+            </Callout>
+          </MapView.Marker>
         ))}
       </MapView>
       <TouchableOpacity
@@ -53,8 +55,11 @@ const Map = ({ navigation }) => {
       >
         <Icon style={styles.icon} fill="#000" name="menu-outline" />
       </TouchableOpacity>
-      <Footer navigation={navigation} />
-      <Filter filterPois={filterPois} ModalVisible={ModalVisible} setModalVisible={setModalVisible} />
+      <Filter
+        filterPois={filterPois}
+        ModalVisible={ModalVisible}
+        setModalVisible={setModalVisible}
+      />
     </Layout>
   );
 };
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "100%",
-    height: "85%",
+    height: "100%",
   },
   Fab: {
     width: 55,
@@ -87,5 +92,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     height: 32,
+  },
+  Callout: {
+    borderRadius: 10,
   },
 });

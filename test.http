@@ -1,15 +1,4 @@
 
 
-post https://sportilize.herokuapp.com/api/v1/events/create
+get https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&request=GetFeature&typename=adr_voie_lieu.adrequipsportpct&outputFormat=application%2Fjson%3B%20subtype%3Dgeojson&SRSNAME=EPSG%3A4171&startIndex=0&count=100&fbclid=IwAR0V5nsGhLJ3uy91FQnUQx430ZkJEkj76bdyhsPGt2HX61Rzoz5kQL6Ox-E
 Content-Type: application/json
-
-{
-    "creator":"creatorUUID",
-    "participantsNumber":10,
-    "location" : "geoCoords",
-    "startDate":"unix timestamp",
-	"endDate":"unix timestamp",
-    "infrastructure" : 12334,
-    "description": "This is a great event",
-    "sports" : ["tennis","volleyball","badminton"]
-  }

@@ -9,10 +9,9 @@ import {
   Image,
 } from "react-native";
 import { Icon, Popover, Button, Layout } from "@ui-kitten/components";
-import * as eva from "@eva-design/eva";
 import ProfilePopover from "./ProfilePopover";
 
-const Header = () => {
+const Header = ({ NavigateToScreen, LoggedInUser }) => {
   const [visible, setVisible] = React.useState(false);
 
   const renderProfileIcon = () => (
@@ -34,6 +33,8 @@ const Header = () => {
         <Text style={styles.logoText}>Sportilize</Text>
       </View>
       <ProfilePopover
+        NavigateToScreen={NavigateToScreen}
+        LoggedInUser={LoggedInUser}
         placement={"bottom end"}
         style={{ position: "absolute", marginTop: 48 }}
         visible={visible}
