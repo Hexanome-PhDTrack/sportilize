@@ -34,30 +34,30 @@ const App = () => {
     }
 
     NavigateToScreen("Dashboard");
-
-    return (
-      <>
-        <ApplicationProvider {...eva} theme={eva.light}>
-          <DefaultUserPrompt isDefaultUserPromptVisible={isDefaultUserPromptVisible} setIsDefaultUserPromptVisible={setIsDefaultUserPromptVisible} setDefaultUser={setDefaultUser} />
-          <IconRegistry icons={EvaIconsPack} />
-          {CurrentScreen == "Loading" && <LoadingScreen />}
-          {
-            CurrentScreen == "Authentication" && (
-              <Auth NavigateToScreen={NavigateAfterLogin} />
-            )
-          }
-          {
-            CurrentScreen == "Dashboard" && (
-              <Dashboard
-                LoggedInUser={JSON.parse(LoggedInUser)}
-                NavigateToScreen={NavigateToScreen}
-              />
-            )
-          }
-        </ApplicationProvider>
-      </>
-    )
   }, []);
+
+  return (
+    <>
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <DefaultUserPrompt isDefaultUserPromptVisible={isDefaultUserPromptVisible} setIsDefaultUserPromptVisible={setIsDefaultUserPromptVisible} setDefaultUser={setDefaultUser} />
+        <IconRegistry icons={EvaIconsPack} />
+        {CurrentScreen == "Loading" && <LoadingScreen />}
+        {
+          CurrentScreen == "Authentication" && (
+            <Auth NavigateToScreen={NavigateAfterLogin} />
+          )
+        }
+        {
+          CurrentScreen == "Dashboard" && (
+            <Dashboard
+              LoggedInUser={JSON.parse(LoggedInUser)}
+              NavigateToScreen={NavigateToScreen}
+            />
+          )
+        }
+      </ApplicationProvider>
+    </>
+  )
 }
 
 export default App;
