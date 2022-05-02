@@ -17,10 +17,8 @@ const App = () => {
     const LoggedUser = await AsyncStorage.getItem("LoggedUser");
     if (LoggedUser) {
       setLoggedInUser(LoggedUser);
-      NavigateToScreen("Dashboard");
-    } else {
-      NavigateToScreen("Authentication");
     }
+    NavigateToScreen("Dashboard");
   }, []);
   const NavigateAfterLogin = async (User) => {
     setLoggedInUser(User);

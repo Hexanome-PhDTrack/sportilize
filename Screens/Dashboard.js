@@ -14,7 +14,7 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
     <View style={{ flex: 1 }}>
       <Header NavigateToScreen={NavigateToScreen} LoggedInUser={LoggedInUser} />
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Map">
           <Stack.Screen name="CreateEvent" component={CreateEvent} />
           <Stack.Screen name="Map" component={Map} />
         </Stack.Navigator>
