@@ -1,10 +1,5 @@
 import { post } from "./index";
 
-export const setDefaultUser = async(id, username) => {
-    const newUser = {
-        uuid: id,
-        username: username
-    };
-
+export const addDefaultUser = async(newUser) => {
     return post('users/new_user', null, newUser);
 }
