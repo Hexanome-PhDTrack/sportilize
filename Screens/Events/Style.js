@@ -51,6 +51,7 @@ module.exports = StyleSheet.create({
     borderColor: "#00E096",
     width: "60%",
     marginTop: 10,
+    marginBottom: 10
   },
   icon: {
     width: 32,
