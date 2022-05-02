@@ -17,7 +17,10 @@ import {
 import Footer from "../../components/Footer";
 import Header from "../Header/Header";
 import { CreateAnEvent } from "../../api/Event.js";
-const CreateEvent = ({ navigation }) => {
+import { useNavigation } from "@react-navigation/native";
+const CreateEvent = () => {
+  const navigation = useNavigation();
+
   // to check if a properety is not defined
   const checkProperties = (obj) => {
     let arr = [];
@@ -66,6 +69,7 @@ const CreateEvent = ({ navigation }) => {
       alert("Please fill all inputs");
     }
   };
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -161,9 +165,9 @@ const CreateEvent = ({ navigation }) => {
           </Button>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.BackBtn}>
+      {/*<TouchableOpacity style={styles.BackBtn} onPress={onReturnToPreviousScreen()}>
         <Icon style={styles.icon} fill="#000" name="arrow-back-outline" />
-      </TouchableOpacity>
+      </TouchableOpacity>*/}
     </KeyboardAvoidingView>
   );
 };
