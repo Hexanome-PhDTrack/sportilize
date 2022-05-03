@@ -15,7 +15,7 @@ const App = () => {
   const [defaultUser, setDefaultUser] = useState({ uuid: "", username: "" });
   const [isDefaultUserPromptVisible, setIsDefaultUserPromptVisible] = useState(false);
   const [CurrentScreen, NavigateToScreen] = useState("Loading");
-  const [LoggedInUser, setLoggedInUser] = useState("");
+  const [LoggedInUser, setLoggedInUser] = useState("{\"username\":\"username\", \"email\": \"email\"}");
 
   useEffect(async () => {
     // check if the device's default user is already set

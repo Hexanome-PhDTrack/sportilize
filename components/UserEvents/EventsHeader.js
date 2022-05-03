@@ -21,10 +21,10 @@ const EventsHeader = ({ selectedTab, setSelectedTab }) => {
 
     return (
         <View style={styles.headerContainer}>
-            <TouchableOpacity style={styles.button} onPress={onTabChanged('organized')}>
+            <TouchableOpacity style={styles.button} onPress={() => onTabChanged('organized')}>
                 <Text style={selectedTab === 'organized' ? styles.selectedTabText : null}>Events organized by you</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={onTabChanged('planned')}>
+            <TouchableOpacity style={styles.button} onPress={() => onTabChanged('planned')}>
                 <Text style={selectedTab === 'planned' ? styles.selectedTabText : null}>Planned events</Text>
             </TouchableOpacity>
         </View>
