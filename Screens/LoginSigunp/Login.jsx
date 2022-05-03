@@ -4,7 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, KeyboardAvoidingView, ScrollView } from "react-native";
 import { LogUsers } from "../../api/user";
 import styles from "./Style.js";
-const Login = (props) => {
+import AppContext from "../../AppContext";
+
+const Login = ({ navigation }) => {
+  const setLoggedInUser = useContext(AppContext);
   const [showError, setShowError] = useState(false);
   const [showSucces, setshowSucces] = useState(false);
   const [Message, setMsg] = useState("");
@@ -29,7 +32,8 @@ const Login = (props) => {
           setshowSucces(true);
           //storing user Data in cache
           await AsyncStorage.setItem("LoggedUser", JSON.stringify(response));
-          props.NavigateToScreen(JSON.stringify(response));
+          setLoggedInUser(response);
+          navigation.navigate("Map");
           setTimeout(() => {
             setshowSucces(false);
           }, 1500);
@@ -58,6 +62,7 @@ const Login = (props) => {
               size="large"
               style={styles.Input}
               placeholder="Enter your email"
+              onBlur={() => setUserInput({ ...userInput, email: userInput.email.toLowerCase().trim() })}
               onChangeText={(text) => HandleUserInput(text, "email")}
             />
           </View>
@@ -69,6 +74,7 @@ const Login = (props) => {
               size="large"
               placeholder="Password"
               secureTextEntry={true}
+              onBlur={() => setUserInput({ ...userInput, password: userInput.password.trim() })}
               onChangeText={(text) => HandleUserInput(text, "password")}
             />
           </View>
