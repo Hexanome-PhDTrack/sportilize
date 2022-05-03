@@ -12,10 +12,10 @@ import Dashboard from "./Screens/Dashboard";
 import LoadingScreen from "./Screens/LoadingScreen";
 
 const App = () => {
-  const [defaultUser, setDefaultUser] = useState({ uuid: "", username: "" });
+  const [defaultUser, setDefaultUser] = useState(null);
   const [isDefaultUserPromptVisible, setIsDefaultUserPromptVisible] = useState(false);
   const [CurrentScreen, NavigateToScreen] = useState("Loading");
-  const [LoggedInUser, setLoggedInUser] = useState("");
+  const [LoggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(async () => {
     // check if the device's default user is already set
@@ -28,7 +28,7 @@ const App = () => {
     }
 
     // check if a user is already logged in
-    const LoggedUser = await AsyncStorage.getItem("LoggedUser");
+    const LoggedUser = JSON.parse(await AsyncStorage.getItem("LoggedUser"));
     if (LoggedUser) {
       setLoggedInUser(LoggedUser);
     }
@@ -50,7 +50,7 @@ const App = () => {
         {
           CurrentScreen == "Dashboard" && (
             <Dashboard
-              LoggedInUser={JSON.parse(LoggedInUser)}
+              LoggedInUser={LoggedInUser}
               NavigateToScreen={NavigateToScreen}
             />
           )

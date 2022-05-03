@@ -1,7 +1,7 @@
 import React from "react-native";
 import { useState, useEffect } from "react";
 import Login from "./Login";
-import SignUp from "./SigunUp";
+import SignUp from "./Signup";
 import LoginSignup from "./LoginSignup";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";

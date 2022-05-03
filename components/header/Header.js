@@ -10,9 +10,11 @@ import {
 } from "react-native";
 import { Icon, Popover, Button, Layout } from "@ui-kitten/components";
 import ProfilePopover from "./ProfilePopover";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 const Header = ({ NavigateToScreen, LoggedInUser }) => {
   const [visible, setVisible] = React.useState(false);
+  const navigation = useNavigation();
 
   const renderProfileIcon = () => (
     <Icon style={styles.icon} name="person" fill="#000000" />
@@ -32,15 +34,21 @@ const Header = ({ NavigateToScreen, LoggedInUser }) => {
         <Image source={require("../../assets/logo.png")} style={styles.logo} />
         <Text style={styles.logoText}>Sportilize</Text>
       </View>
-      <ProfilePopover
-        NavigateToScreen={NavigateToScreen}
-        LoggedInUser={LoggedInUser}
-        placement={"bottom end"}
-        style={{ position: "absolute", marginTop: 48 }}
-        visible={visible}
-        anchor={renderToggleButton}
-        onBackdropPress={() => setVisible(false)}
-      />
+      {LoggedInUser
+        ? <ProfilePopover
+          NavigateToScreen={NavigateToScreen}
+          LoggedInUser={LoggedInUser}
+          placement={"bottom end"}
+          style={{ position: "absolute", marginTop: 48 }}
+          visible={visible}
+          anchor={renderToggleButton}
+          onBackdropPress={() => setVisible(false)}
+        />
+        : <Button
+          style={styles.btn}
+          accessoryLeft={renderProfileIcon}
+          onPress={() => navigation.navigate('LoginSignup')}
+        />}
     </SafeAreaView>
   );
 };
