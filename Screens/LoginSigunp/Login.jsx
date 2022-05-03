@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Layout, Text, Input, Button, Icon } from "@ui-kitten/components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, KeyboardAvoidingView, ScrollView } from "react-native";
@@ -34,9 +34,6 @@ const Login = ({ navigation }) => {
           await AsyncStorage.setItem("LoggedUser", JSON.stringify(response));
           setLoggedInUser(response);
           navigation.navigate("Map");
-          setTimeout(() => {
-            setshowSucces(false);
-          }, 1500);
         } else {
           setMsg(response.message);
           setShowError(true);
