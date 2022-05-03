@@ -12,15 +12,6 @@ const LoginSignup = ({ navigation }) => {
 
   return (
     <Layout style={styles.Container}>
-      <SafeAreaView style={styles.header}>
-        <View style={styles.leftPart}>
-          <Image
-            source={require("../../assets/logo.png")}
-            style={styles.logo}
-          />
-          <Text style={styles.logoText}>Sportilize</Text>
-        </View>
-      </SafeAreaView>
       <Text style={styles.pageText}>
         In order to have full access to the application, please sign up or login
       </Text>
@@ -36,7 +27,7 @@ const LoginSignup = ({ navigation }) => {
           appearance="outline"
           style={{ ...styles.Button, backgroundColor: "#fff" }}
         >
-          Sigu nup
+          Sign up
         </Button>
       </View>
     </Layout>
