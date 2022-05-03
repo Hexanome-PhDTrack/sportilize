@@ -7,6 +7,7 @@ import Header from "../components/header/Header";
 import Footer from "../components/Footer";
 import { SafeAreaView } from "react-native";
 import UserEventsList from "./Events/UserEventsList";
+import EventDetailsScreen from "./Events/EventDetailsScreen"
 
 const Stack = createStackNavigator();
 const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
@@ -19,6 +20,7 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
           <Stack.Screen name="CreateEvent" component={CreateEvent} />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="UserEventsList" component={UserEventsList} />
+          <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
         </Stack.Navigator>
         <Footer />
       </NavigationContainer>
