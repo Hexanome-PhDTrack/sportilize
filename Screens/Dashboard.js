@@ -16,13 +16,13 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Header NavigateToScreen={NavigateToScreen} LoggedInUser={LoggedInUser} />
+        <Header NavigateToScreen={NavigateToScreen} LoggedInUser={LoggedInUser}/>
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Map">
           <Stack.Screen name="CreateEvent" component={CreateEvent} />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="LoginSignup" component={LoginSignup} />
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={SignUp} />
+          <Stack.Screen name="Signup" component={SignUp}/>
         </Stack.Navigator>
         <Footer />
       </NavigationContainer>

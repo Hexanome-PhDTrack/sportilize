@@ -3,13 +3,14 @@ import * as eva from '@eva-design/eva';
 import HomeScreen from './components/HomeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import "react-native-gesture-handler";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import DefaultUserPrompt from './components/defaultUser/defaultUserPrompt';
 import Auth from "./Screens/LoginSigunp";
 import Dashboard from "./Screens/Dashboard";
 import LoadingScreen from "./Screens/LoadingScreen";
+import AppContext from './AppContext';
 
 const App = () => {
   const [defaultUser, setDefaultUser] = useState(null);
@@ -18,6 +19,12 @@ const App = () => {
   const [LoggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(async () => {
+    /*try {
+      await AsyncStorage.removeItem("LoggedUser")
+    } catch (error) {
+      
+    }*/
+
     // check if the device's default user is already set
     const defaultUserFromStorage = JSON.parse(await AsyncStorage.getItem('DefaultUser'));
     if (!defaultUserFromStorage) {
@@ -39,22 +46,24 @@ const App = () => {
   return (
     <>
       <ApplicationProvider {...eva} theme={eva.light}>
-        <DefaultUserPrompt isDefaultUserPromptVisible={isDefaultUserPromptVisible} setIsDefaultUserPromptVisible={setIsDefaultUserPromptVisible} setDefaultUser={setDefaultUser} />
-        <IconRegistry icons={EvaIconsPack} />
-        {CurrentScreen == "Loading" && <LoadingScreen />}
-        {
-          CurrentScreen == "Authentication" && (
-            <Auth NavigateToScreen={NavigateAfterLogin} />
-          )
-        }
-        {
-          CurrentScreen == "Dashboard" && (
-            <Dashboard
-              LoggedInUser={LoggedInUser}
-              NavigateToScreen={NavigateToScreen}
-            />
-          )
-        }
+        <AppContext.Provider value={setLoggedInUser}>
+          <DefaultUserPrompt isDefaultUserPromptVisible={isDefaultUserPromptVisible} setIsDefaultUserPromptVisible={setIsDefaultUserPromptVisible} setDefaultUser={setDefaultUser} />
+          <IconRegistry icons={EvaIconsPack} />
+          {CurrentScreen == "Loading" && <LoadingScreen />}
+          {
+            CurrentScreen == "Authentication" && (
+              <Auth NavigateToScreen={NavigateAfterLogin} />
+            )
+          }
+          {
+            CurrentScreen == "Dashboard" && (
+              <Dashboard
+                LoggedInUser={LoggedInUser}
+                NavigateToScreen={NavigateToScreen}
+              />
+            )
+          }
+        </AppContext.Provider>
       </ApplicationProvider>
     </>
   )

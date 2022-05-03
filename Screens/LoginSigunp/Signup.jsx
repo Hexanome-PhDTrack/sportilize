@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Layout, Text, Input, Button } from "@ui-kitten/components";
 import { View, ScrollView, KeyboardAvoidingView } from "react-native";
 import styles from "./Style.js";
 import uuid from "react-native-uuid";
 import { UserCreate } from "../../api/user.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppContext from "../../AppContext";
 
-const SignUp = ({navigation}) => {
+const SignUp = ({ navigation }) => {
+  const setLoggedInUser = useContext(AppContext);
   const [showError, setShowError] = useState(false);
   const [Message, setMsg] = useState("");
   const validEmailRegex =
@@ -23,6 +25,7 @@ const SignUp = ({navigation}) => {
     setUserInput({ ...userInput, [Name]: Input });
   };
   const CreateUser = async () => {
+    console.log("Create user");
     if (
       userInput.email.match(validEmailRegex) &&
       userInput.password.trim() != "" &&
@@ -33,9 +36,13 @@ const SignUp = ({navigation}) => {
         let Data = { ...userInput };
         delete Data.confirmpassword;
         try {
+          console.log("Sending info to API...");
           const response = await UserCreate(Data);
+          console.log("... Done");
           if (response.ok) {
             await AsyncStorage.setItem("LoggedUser", JSON.stringify(response));
+            setLoggedInUser(response);
+            console.log("Ready to navigate");
             navigation.navigate("Map");
           } else {
             setMsg(response.message);
@@ -67,7 +74,7 @@ const SignUp = ({navigation}) => {
               size="large"
               style={styles.Input}
               placeholder="Enter your username"
-              onBlur={() => setUserInput({...userInput, username: userInput.username.trim()})}
+              onBlur={() => setUserInput({ ...userInput, username: userInput.username.trim() })}
               onChangeText={(text) => HandleUserInput(text, "username")}
             />
           </View>
@@ -78,7 +85,7 @@ const SignUp = ({navigation}) => {
               size="large"
               style={styles.Input}
               placeholder="Enter your email"
-              onBlur={() => setUserInput({...userInput, email: userInput.email.toLowerCase().trim()})}
+              onBlur={() => setUserInput({ ...userInput, email: userInput.email.toLowerCase().trim() })}
               onChangeText={(text) => HandleUserInput(text, "email")}
             />
           </View>
@@ -89,7 +96,7 @@ const SignUp = ({navigation}) => {
               size="large"
               style={styles.Input}
               placeholder="Enter your password"
-              onBlur={() => setUserInput({...userInput, password: userInput.password.trim()})}
+              onBlur={() => setUserInput({ ...userInput, password: userInput.password.trim() })}
               onChangeText={(text) => HandleUserInput(text, "password")}
               secureTextEntry={true}
             />
@@ -101,7 +108,7 @@ const SignUp = ({navigation}) => {
               size="large"
               style={styles.Input}
               placeholder="Confirm your password"
-              onBlur={() => setUserInput({...userInput, confirmpassword: userInput.confirmpassword.trim()})}
+              onBlur={() => setUserInput({ ...userInput, confirmpassword: userInput.confirmpassword.trim() })}
               onChangeText={(text) => HandleUserInput(text, "confirmpassword")}
               secureTextEntry={true}
             />
