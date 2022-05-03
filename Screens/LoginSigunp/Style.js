@@ -4,8 +4,10 @@ module.exports = StyleSheet.create({
     // Comun styles
   Container: {
     flex: 1,
+    height: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
+    backgroundColor: "#FFFFFF"
   },
   header: {
     flexDirection: "row",
@@ -56,10 +58,10 @@ module.exports = StyleSheet.create({
   // Login Page style
   LoginBtn: {
     width: "80%",
-    marginTop: "40%",
+    marginTop: 50,
     backgroundColor: "#598BFF",
     borderRadius: 10,
-   
+    marginBottom: 10
   },
   ErrorMsg:{
     width:"85%",
@@ -76,12 +78,14 @@ module.exports = StyleSheet.create({
     width: "80%",
     backgroundColor: "#598BFF",
     borderRadius: 10,
-    marginTop: "15%",
+    marginTop: 50,
+    marginBottom: 10
   },
   SigunpFormContainer: {
+    flex: 1,
     width: "100%",
     alignItems: "center",
-    marginTop: "20%",
+    paddingTop: "20%",
   },
 
 
