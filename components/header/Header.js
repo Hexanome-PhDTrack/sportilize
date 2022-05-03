@@ -39,7 +39,6 @@ const Header = ({ NavigateToScreen, LoggedInUser }) => {
           NavigateToScreen={NavigateToScreen}
           LoggedInUser={LoggedInUser}
           placement={"bottom end"}
-          style={{ position: "absolute", marginTop: 48 }}
           visible={visible}
           anchor={renderToggleButton}
           onBackdropPress={() => setVisible(false)}

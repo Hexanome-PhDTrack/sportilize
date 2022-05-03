@@ -4,13 +4,15 @@ import HomeScreen from './components/HomeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import "react-native-gesture-handler";
 import { useState, useEffect, createContext } from 'react';
-import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry, ModalService } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import DefaultUserPrompt from './components/defaultUser/defaultUserPrompt';
 import Auth from "./Screens/LoginSigunp";
 import Dashboard from "./Screens/Dashboard";
 import LoadingScreen from "./Screens/LoadingScreen";
 import AppContext from './AppContext';
+
+ModalService.setShouldUseTopInsets = true
 
 const App = () => {
   const [defaultUser, setDefaultUser] = useState(null);
