@@ -36,7 +36,7 @@ const Header = ({ NavigateToScreen, LoggedInUser }) => {
       </View>
       {LoggedInUser
         ? <ProfilePopover
-          NavigateToScreen={NavigateToScreen}
+          navigation={navigation}
           LoggedInUser={LoggedInUser}
           placement={"bottom end"}
           visible={visible}
