@@ -17,7 +17,7 @@ const Login = (props) => {
   const HandleUserInput = (Input, Name) => {
     setUserInput({ ...userInput, [Name]: Input });
   };
-  const LoginUSer = async () => {
+  const LoginUser = async () => {
     if (
       userInput.email.match(validEmailRegex) &&
       userInput.password.trim() != ""
@@ -84,7 +84,7 @@ const Login = (props) => {
             </View>
           )}
 
-          <Button onPress={LoginUSer} style={styles.LoginBtn}>
+          <Button onPress={LoginUser} style={styles.LoginBtn}>
             Login
           </Button>
         </View>

@@ -6,7 +6,7 @@ import uuid from "react-native-uuid";
 import { UserCreate } from "../../api/user.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SignUp = (props) => {
+const SignUp = ({navigation}) => {
   const [showError, setShowError] = useState(false);
   const [Message, setMsg] = useState("");
   const validEmailRegex =
@@ -36,7 +36,7 @@ const SignUp = (props) => {
           const response = await UserCreate(Data);
           if (response.ok) {
             await AsyncStorage.setItem("LoggedUser", JSON.stringify(response));
-            props.NavigateToScreen(JSON.stringify(response));
+            navigation.navigate("Map");
           } else {
             setMsg(response.message);
             setShowError(true);
@@ -67,6 +67,7 @@ const SignUp = (props) => {
               size="large"
               style={styles.Input}
               placeholder="Enter your username"
+              onBlur={() => setUserInput({...userInput, username: userInput.username.trim()})}
               onChangeText={(text) => HandleUserInput(text, "username")}
             />
           </View>
@@ -77,6 +78,7 @@ const SignUp = (props) => {
               size="large"
               style={styles.Input}
               placeholder="Enter your email"
+              onBlur={() => setUserInput({...userInput, email: userInput.email.toLowerCase().trim()})}
               onChangeText={(text) => HandleUserInput(text, "email")}
             />
           </View>
@@ -87,6 +89,7 @@ const SignUp = (props) => {
               size="large"
               style={styles.Input}
               placeholder="Enter your password"
+              onBlur={() => setUserInput({...userInput, password: userInput.password.trim()})}
               onChangeText={(text) => HandleUserInput(text, "password")}
               secureTextEntry={true}
             />
@@ -98,6 +101,7 @@ const SignUp = (props) => {
               size="large"
               style={styles.Input}
               placeholder="Confirm your password"
+              onBlur={() => setUserInput({...userInput, confirmpassword: userInput.confirmpassword.trim()})}
               onChangeText={(text) => HandleUserInput(text, "confirmpassword")}
               secureTextEntry={true}
             />
