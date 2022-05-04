@@ -10,10 +10,11 @@ import LoginSignup from "./LoginSigunp/LoginSignup";
 import Login from "./LoginSigunp/Login";
 import SignUp from "./LoginSigunp/Signup";
 import UserEventsList from "./Events/UserEventsList";
-import EventDetailsScreen from "./Events/EventDetailsScreen"
+import EventDetailsScreen from "./Events/EventDetailsScreen";
+import Settings from './Settings/Settings';
 
 const Stack = createStackNavigator();
-const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
+const Dashboard = ({ NavigateToScreen, LoggedInUser, DefaultUser }) => {
   // put all screens here as Stack.Screen
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -27,8 +28,9 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
           <Stack.Screen name="Signup" component={SignUp} />
           <Stack.Screen name="UserEventsList" component={UserEventsList} initialParams={LoggedInUser} />
           <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
+          <Stack.Screen name="Settings" component={Settings} />
         </Stack.Navigator>
-        <Footer />
+        <Footer DefaultUser={DefaultUser}/>
       </NavigationContainer>
     </SafeAreaView>
   );
