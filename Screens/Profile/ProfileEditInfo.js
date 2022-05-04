@@ -18,15 +18,12 @@ const ProfileEditInfo = ({ route, navigation }) => {
         }
         editUser(newUser)
             .then(response => {
-                if (!response.ok) {
-                    throw Error('Network response was not ok')
-                }
-                else {
-                    if(Platform.OS === "android") {
-                        Toast.show("Username successfully changed");
-                    }
-                    setLoggedInUser(newUser);
+                if (response.status === 204) {
+                    Toast.show("Username changed successfully");
                     navigation.goBack();
+                }
+                else{
+                    throw Error("Username change has failed.", Toast.LONG);
                 }
             })
             .catch(error => {

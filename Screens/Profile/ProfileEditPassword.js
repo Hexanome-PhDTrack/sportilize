@@ -4,29 +4,27 @@ import { View, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 import { Button, Icon, Input, Text } from '@ui-kitten/components';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { editUser } from '../../api/user';
+import { editPassword, editUser } from '../../api/user';
 
 const ProfileEditPassword = ({ route, navigation }) => {
     const [newPassword, setNewPassword] = useState("");
     const [oldPassword, setOldPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-    const onConfirm = () => {
+    const onConfirm = async () => {
         const newInfo = {
             email: route.params.LoggedInUser.email,
+            oldPassword: oldPassword,
             newPassword: newPassword
         }
-        editPassword(newUser)
+        editPassword(newInfo)
             .then(response => {
-                if (!response.ok) {
-                    throw Error('Network response was not ok')
-                }
-                else {
-                    if (Platform.OS === "android") {
-                        Toast.show("Password successfully changed");
-                    }
-                    setLoggedInUser(newUser);
+                if (response.status === 204) {
+                    Toast.show("Password changed successfully");
                     navigation.goBack();
+                }
+                else{
+                    throw Error("Password change has failed. Check the previous password's correctness and try again.", Toast.LONG);
                 }
             })
             .catch(error => {
@@ -62,7 +60,7 @@ const ProfileEditPassword = ({ route, navigation }) => {
                         secureTextEntry={true}
                         onBlur={() => setNewPassword(newPassword.trim())}
                         onChangeText={nextValue => setNewPassword(nextValue)}
-                        status={!newPassword ? 'danger' : 'basic'}
+                        status={!newPassword || oldPassword === newPassword ? 'danger' : 'basic'}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -73,7 +71,7 @@ const ProfileEditPassword = ({ route, navigation }) => {
                         secureTextEntry={true}
                         onBlur={() => setConfirmNewPassword(confirmNewPassword.trim())}
                         onChangeText={nextValue => setConfirmNewPassword(nextValue)}
-                        status={!confirmNewPassword ? 'danger' : 'basic'}
+                        status={!confirmNewPassword || newPassword !== confirmNewPassword ? 'danger' : 'basic'}
                     />
                 </View>
                 <Button disabled={!isSubmitAuthorized} onPress={() => onConfirm()} style={[styles.btn, isSubmitAuthorized() ? styles.confirmBtn : styles.disabledBtn]}>Confirm</Button>

@@ -7,7 +7,7 @@ export const get = (url, params) =>
     ...params,
   });
 
-export const put = async(url, params, body) => {
+export const put = async (url, params, body) => {
   const res = await fetch(BASE_URL + url, {
     method: "PUT",
     headers: {
@@ -16,11 +16,16 @@ export const put = async(url, params, body) => {
     ...params,
     body: JSON.stringify(body),
   });
-  const data = await res.json();
-  return {
-    ok: res.ok,
-    ...data,
-  };
+
+  try {
+    const data = await res.json();
+    return {
+      ok: res.ok,
+      ...data,
+    };
+  } catch(e) {
+    return res;
+  }
 }
 
 export const post = async (url, params, body) => {
@@ -32,11 +37,16 @@ export const post = async (url, params, body) => {
     ...params,
     body: JSON.stringify(body),
   });
-  const data = await res.json();
-  return {
-    ok: res.ok,
-    ...data,
-  };
+
+  try {
+    const data = await res.json();
+    return {
+      ok: res.ok,
+      ...data,
+    };
+  } catch(e) {
+    return res;
+  }
 };
 
 export const getFromLyon = (url, params) =>
