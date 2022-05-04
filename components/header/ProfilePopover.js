@@ -7,16 +7,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const ProfilePopover = (props) => {
   const setLoggedInUser = useContext(AppContext);
 
+  const GoToProfileView = () => {
+    props.navigation.navigate("ProfileView", { LoggedInUser: props.LoggedInUser });
+  }
+
   const Logout = async () => {
     try {
       await AsyncStorage.removeItem("LoggedUser");
       setLoggedInUser(null);
-      if (Platform.OS === "android"){
+      if (Platform.OS === "android") {
         Toast.show("Successfully disconnected from account.");
       }
       props.navigation.navigate("Map");
     } catch (e) {
-      if (Platform.OS === "android"){
+      if (Platform.OS === "android") {
         Toast.show("Error: " + e);
       }
     }
@@ -27,7 +31,7 @@ const ProfilePopover = (props) => {
       <Layout style={styles.content}>
         <Text style={styles.username}>{props.LoggedInUser.username}</Text>
         <Text style={styles.email}>{props.LoggedInUser.email}</Text>
-        <Button style={styles.button}>
+        <Button onPress={GoToProfileView} style={styles.button}>
           View profile
         </Button>
         <Button onPress={Logout} style={styles.button}>

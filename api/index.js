@@ -7,6 +7,22 @@ export const get = (url, params) =>
     ...params,
   });
 
+export const put = async(url, params, body) => {
+  const res = await fetch(BASE_URL + url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    ...params,
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+  return {
+    ok: res.ok,
+    ...data,
+  };
+}
+
 export const post = async (url, params, body) => {
   const res = await fetch(BASE_URL + url, {
     method: "POST",

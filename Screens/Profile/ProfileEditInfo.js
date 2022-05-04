@@ -1,8 +1,10 @@
 import React from 'react-native';
-import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
+import Toast from 'react-native-simple-toast';
+import { View, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 import { Button, Icon, Input, Text } from '@ui-kitten/components';
 import { SafeAreaView, StyleSheet } from 'react-native';
+import { editUser } from '../../api/user';
 
 const validEmailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -11,13 +13,30 @@ const ProfileEditInfo = ({ route, navigation }) => {
     const { LoggedInUser } = route.params;
     const setLoggedInUser = useContext(AppContext);
     const [username, setUsername] = useState(LoggedInUser.username);
-    const [email, setEmail] = useState(LoggedInUser.email);
 
     const onConfirm = () => {
         const newUser = {
             ...LoggedInUser,
             username: username
         }
+        editUser(newUser)
+            .then(response => {
+                if (!response.ok) {
+                    throw Error('Network response was not ok')
+                }
+                else {
+                    if(Platform.OS === "android") {
+                        Toast.show("Username successfully changed");
+                    }
+                    setLoggedInUser(newUser);
+                    navigation.goBack();
+                }
+            })
+            .catch(error => {
+                if(Platform.OS === "android") {
+                    Toast.show(error.toString());
+                }
+            })
     }
 
     return (
@@ -32,7 +51,7 @@ const ProfileEditInfo = ({ route, navigation }) => {
                         status={!username ? 'danger' : 'basic'}
                     />
                 </View>
-                <Button disabled={!username} onPress={onConfirm()} style={[styles.btn, username ? styles.confirmBtn : styles.disabledBtn]}>Confirm</Button>
+                <Button disabled={!username} onPress={() => onConfirm()} style={[styles.btn, username ? styles.confirmBtn : styles.disabledBtn]}>Confirm</Button>
             </KeyboardAvoidingView>
         </ScrollView>
     );
@@ -49,7 +68,8 @@ const styles = StyleSheet.create({
         padding: 20
     },
     btn: {
-        marginTop: 10
+        marginTop: 10,
+        width: "80%"
     },
     confirmBtn: {
         backgroundColor: "#00E096",

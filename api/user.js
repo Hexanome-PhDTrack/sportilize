@@ -1,9 +1,13 @@
-import { post } from "./index";
+import { post, put } from "./index";
 const LyonApi =
   "https://download.data.grandlyon.com/wfs/grandlyon?SERVICE=WFS&VERSION=2.0.0&request=GetFeature&typename=adr_voie_lieu.adrequipsportpct&outputFormat=application%2Fjson%3B%20subtype%3Dgeojson&SRSNAME=EPSG%3A4171&startIndex=0&count=100&fbclid=IwAR0V5nsGhLJ3uy91FQnUQx430ZkJEkj76bdyhsPGt2HX61Rzoz5kQL6Ox-E";
 
 export const addDefaultUser = async(newUser) => {
-    return post('users/new_user', null, newUser);
+  return post('users/new_user', null, newUser);
+}
+
+export const editUser = async(newInfo) => {
+  return put('users/edit', null, newInfo);
 }
 
 export const LogUsers = async ({ email, password }) => {
