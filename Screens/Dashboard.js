@@ -9,6 +9,8 @@ import { SafeAreaView } from "react-native";
 import LoginSignup from "./LoginSigunp/LoginSignup";
 import Login from "./LoginSigunp/Login";
 import SignUp from "./LoginSigunp/Signup";
+import UserEventsList from "./Events/UserEventsList";
+import EventDetailsScreen from "./Events/EventDetailsScreen"
 
 const Stack = createStackNavigator();
 const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
@@ -23,6 +25,8 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
           <Stack.Screen name="LoginSignup" component={LoginSignup} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Signup" component={SignUp}/>
+          <Stack.Screen name="UserEventsList" component={UserEventsList} />
+          <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
         </Stack.Navigator>
         <Footer />
       </NavigationContainer>

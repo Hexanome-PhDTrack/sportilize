@@ -16,7 +16,7 @@ const Footer = () => {
         <Text>Map</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate("CreateEvent")}
+        onPress={() => navigation.navigate("UserEventsList")}
         style={styles.footerItem}
       >
         <Icon style={styles.icon} name="calendar-outline" fill="#000" />
