@@ -16,7 +16,7 @@ import { View, StyleSheet } from "react-native";
 import EventsHeader from "./EventsHeader";
 import EventsList from "./EventsList";
 
-const EventsView = () => {
+const EventsView = ({ LoggedInUser }) => {
 	const [selectedTab, setSelectedTab] = useState('organized');
 	const events = [
 		{
@@ -49,7 +49,7 @@ const EventsView = () => {
 
 	return (
 		<>
-			<EventsHeader selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+			<EventsHeader selectedTab={selectedTab} setSelectedTab={setSelectedTab} LoggedInUser={LoggedInUser} />
 			<EventsList events={events} />
 		</>
 

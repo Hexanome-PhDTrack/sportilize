@@ -18,12 +18,12 @@ import { CreateAnEvent } from "../../api/Event.js";
 import { useNavigation } from "@react-navigation/native";
 import EventsView from "../../components/UserEvents/EventsView.js";
 
-const UserEventsList = () => {
+const UserEventsList = ({ LoggedInUser }) => {
 	const navigation = useNavigation();
 
 
 	return (
-		<EventsView />
+		<EventsView LoggedInUser={LoggedInUser} />
 	);
 };
 

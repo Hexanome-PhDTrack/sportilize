@@ -13,15 +13,20 @@ import {
     Datepicker,
 } from "@ui-kitten/components";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
-const EventsHeader = ({ selectedTab, setSelectedTab }) => {
+const EventsHeader = ({ selectedTab, setSelectedTab, LoggedInUser }) => {
+    const navigation = useNavigation();
+
     const onTabChanged = (newTab) => {
         setSelectedTab(newTab);
     }
 
+    if (!LoggedInUser) { selectedTab = 'planned' }
+
     return (
         <View style={styles.headerContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => onTabChanged('organized')}>
+            <TouchableOpacity style={styles.button} onPress={() => LoggedInUser ? onTabChanged('organized') : navigation.navigate('LoginSignup')}>
                 <Text style={selectedTab === 'organized' ? styles.selectedTabText : null}>Events organized by you</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={() => onTabChanged('planned')}>
