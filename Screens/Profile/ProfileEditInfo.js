@@ -6,9 +6,6 @@ import { Button, Icon, Input, Text } from '@ui-kitten/components';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { editUser } from '../../api/user';
 
-const validEmailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
 const ProfileEditInfo = ({ route, navigation }) => {
     const { LoggedInUser } = route.params;
     const setLoggedInUser = useContext(AppContext);
@@ -45,8 +42,9 @@ const ProfileEditInfo = ({ route, navigation }) => {
                 <View style={styles.inputContainer}>
                     <Text>Username:</Text>
                     <Input
-                        placeholder='Username:'
+                        placeholder='Username'
                         value={username}
+                        onBlur={() => setUsername(username.trim())}
                         onChangeText={nextValue => setUsername(nextValue)}
                         status={!username ? 'danger' : 'basic'}
                     />

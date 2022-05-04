@@ -11,6 +11,7 @@ import Login from "./LoginSigunp/Login";
 import SignUp from "./LoginSigunp/Signup";
 import ProfileView from "./Profile/ProfileView";
 import ProfileEditInfo from "./Profile/ProfileEditInfo";
+import ProfileEditPassword from "./Profile/ProfileEditPassword";
 
 const Stack = createStackNavigator();
 const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
@@ -27,6 +28,7 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
           <Stack.Screen name="Signup" component={SignUp} />
           <Stack.Screen name="ProfileView" component={ProfileView} />
           <Stack.Screen name="ProfileEditInfo" component={ProfileEditInfo} />
+          <Stack.Screen name="ProfileEditPassword" component={ProfileEditPassword} />
         </Stack.Navigator>
         <Footer />
       </NavigationContainer>

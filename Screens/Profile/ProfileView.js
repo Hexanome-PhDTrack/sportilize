@@ -17,7 +17,7 @@ const ProfileView = ({ route, navigation }) => {
                 </View>
                 <View style={styles.subContainer}>
                     <Button style={styles.button} onPress={() => navigation.navigate("ProfileEditInfo", { LoggedInUser: LoggedInUser })}>Edit account information</Button>
-                    <Button style={styles.button}>Change password</Button>
+                    <Button style={styles.button} onPress={() => navigation.navigate("ProfileEditPassword", { LoggedInUser: LoggedInUser })}>Change password</Button>
                     <Button style={styles.button} disabled={true}>Change avatar</Button>
                     <Button style={[styles.button, styles.disconnectButton]}>Disconnect</Button>
                 </View>

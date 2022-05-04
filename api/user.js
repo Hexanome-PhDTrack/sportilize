@@ -10,6 +10,10 @@ export const editUser = async(newInfo) => {
   return put('users/edit', null, newInfo);
 }
 
+export const editPassword = async(newInfo) => {
+  return post('auth/change_password', null, newInfo);
+}
+
 export const LogUsers = async ({ email, password }) => {
   const UserData = {
     email,

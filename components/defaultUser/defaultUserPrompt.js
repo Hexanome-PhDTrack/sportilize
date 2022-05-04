@@ -33,7 +33,9 @@ export default defaultUserPrompt = ({ isDefaultUserPromptVisible, setIsDefaultUs
             }
           })
           .catch(error => {
-            Toast.show(error.toString());
+            if(Platform.OS === "android") {
+              Toast.show(error.toString());
+            }
           })
       }
 
