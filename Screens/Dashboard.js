@@ -21,7 +21,6 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser, DefaultUser }) => {
       <NavigationContainer>
         <Header NavigateToScreen={NavigateToScreen} LoggedInUser={LoggedInUser} />
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Map">
-          <Stack.Screen name="CreateEvent" component={CreateEvent} />
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="LoginSignup" component={LoginSignup} />
           <Stack.Screen name="Login" component={Login} />
@@ -29,6 +28,9 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser, DefaultUser }) => {
           <Stack.Screen name="UserEventsList" component={UserEventsList} initialParams={LoggedInUser} />
           <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
           <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="CreateEvent">
+            {(props) => <CreateEvent {...props} LoggedInUser={LoggedInUser} />}
+          </Stack.Screen>
         </Stack.Navigator>
         <Footer DefaultUser={DefaultUser}/>
       </NavigationContainer>

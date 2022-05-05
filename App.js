@@ -15,6 +15,7 @@ import DefaultUserContext from './DefaultUserContext';
 
 ModalService.setShouldUseTopInsets = true
 
+
 const App = () => {
   const [defaultUser, setDefaultUser] = useState(null);
   const [isDefaultUserPromptVisible, setIsDefaultUserPromptVisible] = useState(false);
@@ -42,7 +43,7 @@ const App = () => {
     if (LoggedUser) {
       setLoggedInUser(LoggedUser);
     }
-
+    
     NavigateToScreen("Dashboard");
   }, []);
 
