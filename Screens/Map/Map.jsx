@@ -51,12 +51,12 @@ const Map = () => {
         ))}
       </MapView>
      
-      <MarkerPopover
+      {selectedLocation ? <MarkerPopover
         navigation={navigation}
         ModalVisible={PopoverVisible}
         setModalVisible={setPopoverVisible}
         infrastructure={selectedLocation}
-      />
+      /> : <></>}
       {LoadingVisible && <LoadingBlockScreen />}
     </Layout>
   );
