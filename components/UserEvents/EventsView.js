@@ -15,10 +15,56 @@ import {
 import { View, StyleSheet } from "react-native";
 import EventsHeader from "./EventsHeader";
 import EventsList from "./EventsList";
+import { GetCreatedEvents, GetPlannedEvents } from "../../api/Event";
 
 const EventsView = ({ LoggedInUser }) => {
 	const [selectedTab, setSelectedTab] = useState('organized');
-	const events = [
+	const [events, setEvents] = useState([]);
+
+	useEffect(() => {
+		if (selectedTab === "organized") {
+			GetCreatedEvents(LoggedInUser)
+				.then(response => {
+					if (response) {
+						setEvents(response);
+					}
+					else {
+						setEvents([])
+					}
+				})
+		}
+		else if (selectedTab === "planned") {
+			if (LoggedInUser) {
+				GetPlannedEvents(LoggedInUser)
+					.then(response => {
+						console.log(JSON.stringify(response));
+						if (response) {
+							setEvents(response);
+						}
+						else {
+							setEvents([])
+						}
+					})
+			}
+			else {
+				const defaultUser = JSON.parse(AsyncStorage.getItem('DefaultUser'));
+				if (defaultUser) {
+					GetPlannedEvents(defaultUser)
+						.then(response => {
+							console.log(JSON.stringify(response));
+							if (response) {
+								setEvents(response);
+							}
+							else {
+								setEvents([])
+							}
+						})
+				}
+			}
+		}
+	}, [selectedTab]);
+
+	/*const events = [
 		{
 			id: 1,
 			name: "Course simple",
@@ -45,7 +91,7 @@ const EventsView = ({ LoggedInUser }) => {
 				},
 			]
 		}
-	]
+	]*/
 
 	return (
 		<>

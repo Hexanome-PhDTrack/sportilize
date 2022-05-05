@@ -3,17 +3,8 @@ import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, ScrollView } 
 import { Text, Icon, Datepicker, Input, Button } from "@ui-kitten/components";
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 
-const EventDetails = () => {
-
-
-	const event = {
-		id: 1,
-		name: "Can 2022",
-		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non convallis diam. Nulla congue metus sit amet turpis dignissim commodo. Nullam arcu nibh, vulputate sed tellus non, suscipit faucibus tellus. Proin ac porttitor est. Sed scelerisque felis ut bibendum viverra. Nam semper lorem metus, ut dignissim ex gravida non. Donec facilisis eros arcu, ut fringilla mi suscipit at. ",
-		beginDate: new Date(),
-		endDate: new Date(),
-	}
-
+const EventDetails = ({ event }) => {
+	event = { ...event, beginDate: new Date(event.beginDate), endDate: new Date(event.endDate) };
 
 	const eventConfig = {
 		title: event.name,

@@ -17,10 +17,11 @@ import { useNavigation } from "@react-navigation/native";
 
 const EventsItem = ({ event }) => {
     const navigation = useNavigation();
+    console.log(event);
 
     return (
         <View>
-            <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("EventDetails", event)}>
+            <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("EventDetails", {event: event})}>
                 <View style={styles.eventInfo}>
                     <Text>{event.name}</Text>
                     <Text>{event.infrastructure.name}</Text>

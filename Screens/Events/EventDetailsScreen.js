@@ -18,12 +18,11 @@ import { CreateAnEvent } from "../../api/Event.js";
 import { useNavigation } from "@react-navigation/native";
 import EventDetails from "../../components/Events/EventDetails.js";
 
-const EventDetailsScreen = () => {
-    const navigation = useNavigation();
-
+const EventDetailsScreen = ({ route, navigation }) => {
+    const { event } = route.params;
 
     return (
-        <EventDetails />
+        <EventDetails event={event} />
     );
 };
 
