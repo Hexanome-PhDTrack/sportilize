@@ -16,7 +16,7 @@ const Footer = () => {
         <Text>Map</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate("CreateEvent")}
+        onPress={() => navigation.navigate("UserEventsList")}
         style={styles.footerItem}
       >
         <Icon style={styles.icon} name="calendar-outline" fill="#000" />
@@ -34,10 +34,10 @@ export default Footer;
 const styles = StyleSheet.create({
   footerContainer: {
     width: "100%",
-    height: 60,
+    height: "7%",
+    position: "absolute",
     bottom: 0,
     backgroundColor: "#fff",
-    zIndex: 99,
     borderColor: "#000",
     borderWidth: 1,
     flexDirection: "row",
