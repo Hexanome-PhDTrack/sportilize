@@ -19,10 +19,10 @@ import { useNavigation } from "@react-navigation/native";
 import EventDetails from "../../components/Events/EventDetails.js";
 
 const EventDetailsScreen = ({ route, navigation }) => {
-    const { event } = route.params;
+    const { event, LoggedInUser } = route.params;
 
     return (
-        <EventDetails event={event} />
+        <EventDetails event={event} LoggedInUser={LoggedInUser} />
     );
 };
 

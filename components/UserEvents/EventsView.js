@@ -96,7 +96,7 @@ const EventsView = ({ LoggedInUser }) => {
 	return (
 		<>
 			<EventsHeader selectedTab={selectedTab} setSelectedTab={setSelectedTab} LoggedInUser={LoggedInUser} />
-			<EventsList events={events} />
+			<EventsList events={events} LoggedInUser={LoggedInUser} />
 		</>
 
 	);

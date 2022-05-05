@@ -1,4 +1,4 @@
-import { get } from "./index";
+import { get, post } from "./index";
 
 const BASE_URL = "https://sportilize.herokuapp.com/api/v1/";
 export const CreateAnEvent = async (data, LoggedUser) => {
@@ -35,4 +35,12 @@ export const GetPlannedEvents = async (User) => {
 
 export const GetCreatedEvents = async (LoggedUser) => {
   return get("events/get_organized_by_user", {headers: {Cookie: LoggedUser.Cookie}});
+}
+
+export const ParticipateInEvent = async (event, User) => {
+  return post("events/participate", null, {userUuid: User.uuid, eventId: event.id})
+}
+
+export const WithdrawFromEvent = async (event, User) => {
+  return post("events/withdraw", null, {userUuid: User.uuid, eventId: event.id})
 }

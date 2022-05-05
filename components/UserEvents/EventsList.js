@@ -15,13 +15,13 @@ import {
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import EventsItem from "./EventsItem";
 
-const DynamicEventsList = ({ events }) => {
+const DynamicEventsList = ({ events, LoggedInUser }) => {
     return (
         <>
             {
                 events.map((event) => {
                     return (
-                        <EventsItem key={event.id} event={event} />
+                        <EventsItem key={event.id} event={event} LoggedInUser={LoggedInUser} />
                     )
                 })
             }
@@ -32,7 +32,7 @@ const DynamicEventsList = ({ events }) => {
 const EventsList = ({ events }) => {
     return (
         <View style={styles.list}>
-            {events && <DynamicEventsList events={events}/>}
+            {events !== undefined ? <DynamicEventsList events={events}/> : <></>}
         </View>
     );
 };
