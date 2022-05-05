@@ -34,7 +34,7 @@ const MarkerPopover = ({
         <Button style={{ margin: 3 }}>View Events</Button>
         <Button style={{ margin: 3 }} disabled={!LoggedInUser} onPress={() => {
           setModalVisible(false);
-          navigation.navigate("CreateEvent", { infrastructure: infrastructure });
+          navigation.navigate("CreateEvent", { ...infrastructure });
         }}>Create an event</Button>
       </View>
     </Modal>

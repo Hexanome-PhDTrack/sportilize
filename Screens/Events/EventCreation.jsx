@@ -6,6 +6,7 @@ import {
   Image,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import styles from "./Style.js";
 import {
@@ -17,6 +18,7 @@ import {
 import { CreateAnEvent, GetSports } from "../../api/Event.js";
 import { useNavigation } from "@react-navigation/native";
 import LoadingBlockScreen from "../../components/LoadingBlockScreen";
+import Toast from 'react-native-simple-toast';
 
 const checkProperties = (obj) => {
   let arr = [];
@@ -26,8 +28,7 @@ const checkProperties = (obj) => {
   return arr.includes(false);
 };
 
-const CreateEvent = ({ route,  LoggedInUser }) => {
-  const navigation = useNavigation();
+const CreateEvent = ({ route, navigation, LoggedInUser}) => {
   const [selectedIndex, setSelectedIndex] = useState([new IndexPath(0)]);
   const [SportList, setSportsList] = useState([]);
   const [LoadingVisible, setLoadingVisibility] = useState(true);
@@ -46,8 +47,7 @@ const CreateEvent = ({ route,  LoggedInUser }) => {
     endDate: "",
     participantsNumber: "",
     description: "",
-    // we get infrastructure id from the previous page change the line below to route.params.InfraId
-    infrastructureId: 12334,
+    infrastructureId: route.params.id,
   });
 
   const HandleUserInput = (Input, Name) => {
@@ -68,8 +68,10 @@ const CreateEvent = ({ route,  LoggedInUser }) => {
       try {
         const response = await CreateAnEvent(userInput, LoggedInUser);
         if (response.ok) {
-          console.log(response);
-          alert("Event Created");
+          if(Platform.OS === 'android'){
+            Toast.show("Successfully created event");
+          }
+          navigation.navigate("Map");
         } else {
           alert("Something went wrong , try again");
         }
@@ -88,7 +90,7 @@ const CreateEvent = ({ route,  LoggedInUser }) => {
             style={styles.EventImage}
             source={require("../../assets/img.jpg")}
           />
-          <Text style={styles.EventTitle}>Stade lambda</Text>
+          <Text style={styles.EventTitle}>{route.params.name}</Text>
           <View style={styles.FormContainer}>
             <View style={styles.FormItem}>
               <Text style={styles.InputLabel}>Event name:</Text>
