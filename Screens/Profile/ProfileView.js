@@ -29,7 +29,6 @@ const ProfileView = ({ route, navigation }) => {
 
     const RemoveAccount = async () => {
         const res = await removeAccount(LoggedInUser);
-        console.log(res.status);
         if (res.status === 200) {
             try {
                 await AsyncStorage.removeItem("LoggedUser");
