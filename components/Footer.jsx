@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Layout, Text, Icon } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 
-const Footer = () => {
+const Footer = ({ LoggedInUser }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.footerContainer}>
@@ -16,7 +16,7 @@ const Footer = () => {
         <Text>Map</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate("UserEventsList")}
+        onPress={() => navigation.navigate("UserEventsList", { LoggedInUser: LoggedInUser })}
         style={styles.footerItem}
       >
         <Icon style={styles.icon} name="calendar-outline" fill="#000" />

@@ -36,7 +36,7 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
             {(props) => <CreateEvent {...props} LoggedInUser={LoggedInUser} />}
           </Stack.Screen>
         </Stack.Navigator>
-        <Footer />
+        <Footer LoggedInUser={LoggedInUser}/>
       </NavigationContainer>
     </SafeAreaView>
   );

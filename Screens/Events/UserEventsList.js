@@ -18,9 +18,8 @@ import { CreateAnEvent } from "../../api/Event.js";
 import { useNavigation } from "@react-navigation/native";
 import EventsView from "../../components/UserEvents/EventsView.js";
 
-const UserEventsList = ({ LoggedInUser }) => {
-	const navigation = useNavigation();
-
+const UserEventsList = ({ route, navigation }) => {
+	const { LoggedInUser } = route.params;
 
 	return (
 		<EventsView LoggedInUser={LoggedInUser} />

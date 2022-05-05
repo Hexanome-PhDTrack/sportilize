@@ -18,7 +18,7 @@ import EventsItem from "./EventsItem";
 const EventsList = ({ events }) => {
     return (
         <View style={styles.list}>
-            {events.map((event) => {
+            {events && events.map((event) => {
                 return (
                     <EventsItem key={event.id} event={event} />
                 )
