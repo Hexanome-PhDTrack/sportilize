@@ -10,9 +10,8 @@ import LoginSignup from "./LoginSigunp/LoginSignup";
 import Login from "./LoginSigunp/Login";
 import SignUp from "./LoginSigunp/Signup";
 import UserEventsList from "./Events/UserEventsList";
-import EventDetailsScreen from "./Events/EventDetailsScreen"
+import EventDetailsScreen from "./Events/EventDetailsScreen";
 
-import { View } from "react-native";
 const Stack = createStackNavigator();
 const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
   // put all screens here as Stack.Screen
@@ -34,7 +33,7 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
         </Stack.Navigator>
         <Footer />
       </NavigationContainer>
-    </View>
+    </SafeAreaView>
   );
 };
 
