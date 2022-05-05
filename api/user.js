@@ -1,18 +1,22 @@
-import { post } from "./index";
+import { post, put } from "./index";
 const infrastructures =
   "https://sportilize.herokuapp.com/api/v1/infrastructures/get_all_infrastructures";
 
 export const addDefaultUser = async(newUser) => {
-  return post('users/new_user', null, newUser);
+  return post('users/new_user', newUser);
 }
 
-export const editUser = async(newInfo) => {
-  return put('users/edit', null, newInfo);
+export const editUser = async(newInfo, LoggedUser) => {
+  return put('users_auth/edit', {headers: {Cookie: LoggedUser.Cookie}}, newInfo);
 }
 
-export const editPassword = async(newInfo) => {
-  return post('auth/change_password', null, newInfo);
+export const editPassword = async(newInfo, LoggedUser) => {
+  return post('auth/change_password', {headers: {Cookie: LoggedUser.Cookie}}, newInfo);
 }
+
+/*export const removeAccount = async(LoggedUser) => {
+
+}*/
 
 export const LogUsers = async ({ email, password }) => {
   const UserData = {
@@ -20,10 +24,10 @@ export const LogUsers = async ({ email, password }) => {
     password,
   };
 
-  return post("auth/login", null, UserData);
+  return post("auth/login", undefined, UserData);
 };
 export const UserCreate = async (data) => {
-  return post("auth/register", null, data);
+  return post("auth/register", undefined, data);
 };
 export const Signup = async (id, { username, email, password, uuid }) => {
   const newUser = {
@@ -33,7 +37,7 @@ export const Signup = async (id, { username, email, password, uuid }) => {
     username,
   };
 
-  return post("auth/register", null, newUser);
+  return post("auth/register", undefined, newUser);
 };
 export const GetPois = async () => {
   const res = await fetch(infrastructures, {

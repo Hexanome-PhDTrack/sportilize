@@ -13,14 +13,19 @@ const ProfileEditInfo = ({ route, navigation }) => {
 
     const onConfirm = () => {
         const newUser = {
-            ...LoggedInUser,
-            username: username
+            username: username,
+            email: LoggedInUser.email
         }
-        editUser(newUser)
+        editUser(newUser, LoggedInUser)
             .then(response => {
                 if (response.status === 204) {
                     Toast.show("Username changed successfully");
-                    navigation.goBack();
+                    setLoggedInUser({...LoggedInUser, ...newUser});
+                    navigation.navigate({
+                        name: "ProfileView", 
+                        params: {LoggedInUser: {...LoggedInUser, ...newUser}, 
+                        merge: true
+                    }});
                 }
                 else{
                     throw Error("Username change has failed.", Toast.LONG);

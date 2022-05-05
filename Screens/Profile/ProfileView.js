@@ -1,11 +1,45 @@
 import React from 'react-native';
-import { View, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { useState, useEffect } from 'react';
+import { View, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { useState, useEffect, useContext } from 'react';
 import { Button, Icon, Text } from '@ui-kitten/components';
 import { SafeAreaView, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-simple-toast';
+import AppContext from '../../AppContext';
 
 const ProfileView = ({ route, navigation }) => {
     const { LoggedInUser } = route.params;
+    const setLoggedInUser = useContext(AppContext);
+
+    const Logout = async () => {
+        try {
+            await AsyncStorage.removeItem("LoggedUser");
+            setLoggedInUser(null);
+            if (Platform.OS === "android") {
+                Toast.show("Successfully disconnected from account.");
+            }
+            navigation.navigate("Map");
+        } catch (e) {
+            if (Platform.OS === "android") {
+                Toast.show("Error: " + e);
+            }
+        }
+    };
+
+    const RemoveAccount = async () => {
+        try {
+            await AsyncStorage.removeItem("LoggedUser");
+            setLoggedInUser(null);
+            if (Platform.OS === "android") {
+                Toast.show("Successfully disconnected from account.");
+            }
+            navigation.navigate("Map");
+        } catch (e) {
+            if (Platform.OS === "android") {
+                Toast.show("Error: " + e);
+            }
+        }
+    }
 
     return (
         <ScrollView contentContainerStyle={{ backgroundColor: "#FFFFFF", flexGrow: 1 }}>
@@ -19,7 +53,8 @@ const ProfileView = ({ route, navigation }) => {
                     <Button style={styles.button} onPress={() => navigation.navigate("ProfileEditInfo", { LoggedInUser: LoggedInUser })}>Edit account information</Button>
                     <Button style={styles.button} onPress={() => navigation.navigate("ProfileEditPassword", { LoggedInUser: LoggedInUser })}>Change password</Button>
                     <Button style={styles.button} disabled={true}>Change avatar</Button>
-                    <Button style={[styles.button, styles.disconnectButton]}>Disconnect</Button>
+                    <Button style={[styles.button, styles.disconnectButton]} onPress={Logout}>Disconnect</Button>
+                    <Button style={[styles.button, styles.disconnectButton]}>Remove account</Button>
                 </View>
             </KeyboardAvoidingView>
         </ScrollView>

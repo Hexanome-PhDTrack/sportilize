@@ -7,6 +7,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { editPassword, editUser } from '../../api/user';
 
 const ProfileEditPassword = ({ route, navigation }) => {
+    const { LoggedInUser } = route.params;
     const [newPassword, setNewPassword] = useState("");
     const [oldPassword, setOldPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -17,14 +18,15 @@ const ProfileEditPassword = ({ route, navigation }) => {
             oldPassword: oldPassword,
             newPassword: newPassword
         }
-        editPassword(newInfo)
+        editPassword(newInfo, LoggedInUser)
             .then(response => {
                 if (response.status === 204) {
                     Toast.show("Password changed successfully");
                     navigation.goBack();
                 }
                 else{
-                    throw Error("Password change has failed. Check the previous password's correctness and try again.", Toast.LONG);
+                    Toast.show("" + response.status)
+                    //throw Error("Password change has failed. Check the previous password's correctness and try again.", Toast.LONG);
                 }
             })
             .catch(error => {

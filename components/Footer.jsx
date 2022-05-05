@@ -34,8 +34,7 @@ export default Footer;
 const styles = StyleSheet.create({
   footerContainer: {
     width: "100%",
-    height: "7%",
-    position: "absolute",
+    height: 50,
     bottom: 0,
     backgroundColor: "#fff",
     borderColor: "#000",
