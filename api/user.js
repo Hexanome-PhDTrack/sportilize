@@ -1,4 +1,4 @@
-import { post, put } from "./index";
+import { deleteReq, post, put } from "./index";
 const infrastructures =
   "https://sportilize.herokuapp.com/api/v1/infrastructures/get_all_infrastructures";
 
@@ -14,9 +14,9 @@ export const editPassword = async(newInfo, LoggedUser) => {
   return post('auth/change_password', {headers: {Cookie: LoggedUser.Cookie}}, newInfo);
 }
 
-/*export const removeAccount = async(LoggedUser) => {
-
-}*/
+export const removeAccount = async(LoggedUser) => {
+  return deleteReq('users_auth/delete', {headers: {Cookie: LoggedUser.Cookie}}, LoggedUser);
+}
 
 export const LogUsers = async ({ email, password }) => {
   const UserData = {

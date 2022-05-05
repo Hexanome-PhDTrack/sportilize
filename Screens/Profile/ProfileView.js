@@ -6,6 +6,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import AppContext from '../../AppContext';
+import { removeAccount } from '../../api/user';
 
 const ProfileView = ({ route, navigation }) => {
     const { LoggedInUser } = route.params;
@@ -27,16 +28,25 @@ const ProfileView = ({ route, navigation }) => {
     };
 
     const RemoveAccount = async () => {
-        try {
-            await AsyncStorage.removeItem("LoggedUser");
-            setLoggedInUser(null);
-            if (Platform.OS === "android") {
-                Toast.show("Successfully disconnected from account.");
+        const res = await removeAccount(LoggedInUser);
+        console.log(res.status);
+        if (res.status === 200) {
+            try {
+                await AsyncStorage.removeItem("LoggedUser");
+                setLoggedInUser(null);
+                if (Platform.OS === "android") {
+                    Toast.show("Successfully removed account.");
+                }
+                navigation.navigate("Map");
+            } catch (e) {
+                if (Platform.OS === "android") {
+                    Toast.show("Error: " + e);
+                }
             }
-            navigation.navigate("Map");
-        } catch (e) {
-            if (Platform.OS === "android") {
-                Toast.show("Error: " + e);
+        }
+        else {
+            if(Platform.OS === "android"){
+                Toast.show("Error: Failed to remove account");
             }
         }
     }
@@ -54,7 +64,7 @@ const ProfileView = ({ route, navigation }) => {
                     <Button style={styles.button} onPress={() => navigation.navigate("ProfileEditPassword", { LoggedInUser: LoggedInUser })}>Change password</Button>
                     <Button style={styles.button} disabled={true}>Change avatar</Button>
                     <Button style={[styles.button, styles.disconnectButton]} onPress={Logout}>Disconnect</Button>
-                    <Button style={[styles.button, styles.disconnectButton]}>Remove account</Button>
+                    <Button style={[styles.button, styles.disconnectButton]} onPress={RemoveAccount}>Remove account</Button>
                 </View>
             </KeyboardAvoidingView>
         </ScrollView>
