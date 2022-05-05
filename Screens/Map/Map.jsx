@@ -7,9 +7,7 @@ import MarkerPopover from "../../components/MarkerPopover";
 import LoadingBlockScreen from "../../components/LoadingBlockScreen";
 import { useNavigation } from "@react-navigation/native";
 
-const Map = () => {
-  const navigation = useNavigation();
-
+const Map = ({ route, navigation, LoggedInUser }) => {
   const [ModalVisible, setModalVisible] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [PopoverVisible, setPopoverVisible] = useState(false);
@@ -27,7 +25,7 @@ const Map = () => {
     };
   }, []);
 
-  
+
   return (
     <Layout style={styles.Container}>
       <MapView
@@ -46,11 +44,11 @@ const Map = () => {
               latitude: parseFloat(JSON.parse(p.point).coordinates[0]),
               longitude: parseFloat(JSON.parse(p.point).coordinates[1]),
             }}
-            onPress={() =>{setSelectedLocation(p),setPopoverVisible(true)}}
+            onPress={() => { setSelectedLocation(p), setPopoverVisible(true) }}
           />
         ))}
       </MapView>
-     
+
       {selectedLocation ? <MarkerPopover
         navigation={navigation}
         ModalVisible={PopoverVisible}

@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Button, Modal } from "@ui-kitten/components";
 import { View, StyleSheet } from "react-native";
+import { useNavigationBuilder } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MarkerPopover = ({
   ModalVisible,
   setModalVisible,
   infrastructure,
-  navigation,
+  navigation
 }) => {
+  const [LoggedInUser, setLoggedInUser] = useState(undefined)
+
+  useEffect(async () => {
+    if (ModalVisible) {
+      setLoggedInUser(JSON.parse(await AsyncStorage.getItem('LoggedUser')));
+    }
+  }, [ModalVisible])
+
   return (
     <Modal
       visible={ModalVisible}
@@ -22,6 +32,10 @@ const MarkerPopover = ({
         {/* use the navigation prop to navigate to screens on button press */}
         <Button style={{ margin: 3 }}>View details</Button>
         <Button style={{ margin: 3 }}>View Events</Button>
+        <Button style={{ margin: 3 }} disabled={!LoggedInUser} onPress={() => {
+          setModalVisible(false);
+          navigation.navigate("CreateEvent", { infrastructure: infrastructure });
+        }}>Create an event</Button>
       </View>
     </Modal>
   );
