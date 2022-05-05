@@ -92,12 +92,11 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: "100%",
-        padding: 20,
-        alignItems: "center"
+        padding: 20
     },
     btn: {
         marginTop: 10,
-        width: "80%"
+        width: "100%"
     },
     modalBtn: {
         margin: 20
@@ -115,8 +114,7 @@ const styles = StyleSheet.create({
     },
     dangerIcon: {
         height: 128,
-        width: 128,
-        margin: 30
+        width: 128
     },
     rowLayout: {
         flexDirection: 'row'

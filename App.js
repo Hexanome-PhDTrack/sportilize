@@ -43,15 +43,16 @@ const App = () => {
     if (LoggedUser) {
       setLoggedInUser(LoggedUser);
     }
-    
+
     NavigateToScreen("Dashboard");
   }, []);
 
   useEffect(async () => {
-    console.log("yolo");
-    const defaultUserFromStorage = JSON.parse(await AsyncStorage.getItem('DefaultUser'));
-    if (!defaultUserFromStorage) {
-      setIsDefaultUserPromptVisible(true);
+    if (!defaultUser) {
+      const defaultUserFromStorage = JSON.parse(await AsyncStorage.getItem('DefaultUser'));
+      if (!defaultUserFromStorage) {
+        setIsDefaultUserPromptVisible(true);
+      }
     }
   }, [defaultUser])
 
