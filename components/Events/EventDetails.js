@@ -33,9 +33,11 @@ const EventDetails = ({ event, LoggedInUser }) => {
 		if (LoggedInUser) {
 			ParticipateInEvent(event, LoggedInUser)
 				.then(response => {
-					console.log(response.status);
-					if (response.status === 200) {
-						if (Platform.OS === 'android') {
+					if (response) {
+						if(response.status && response.status !== 200){
+							throw Error("Failure while trying to register participation")
+						}
+						else if (Platform.OS === 'android') {
 							Toast.show("Your participation was registered");
 						}
 					}
@@ -54,9 +56,11 @@ const EventDetails = ({ event, LoggedInUser }) => {
 			if (defaultUser) {
 				ParticipateInEvent(event, defaultUser)
 					.then(response => {
-						console.log(response.status);
-						if (response.status === 200) {
-							if (Platform.OS === 'android') {
+						if (response) {
+							if(response.status && response.status !== 200){
+								throw Error("Failure while trying to register participation")
+							}
+							else if (Platform.OS === 'android') {
 								Toast.show("Your participation was registered");
 							}
 						}

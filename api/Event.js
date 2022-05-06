@@ -25,11 +25,11 @@ export const GetSports = async () => {
 };
 
 export const GetPlannedEvents = async (User) => {
-  console.log(User);
   const queryParams = {
     uuid: User.uuid
   }
   const params = new URLSearchParams(queryParams).toString();
+  console.log("URL: " + "events/get_events_to_participate?" + params);
   return get("events/get_events_to_participate?" + params, undefined);
 }
 

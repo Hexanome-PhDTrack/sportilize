@@ -16,9 +16,10 @@ import { View, StyleSheet } from "react-native";
 import EventsHeader from "./EventsHeader";
 import EventsList from "./EventsList";
 import { GetCreatedEvents, GetPlannedEvents } from "../../api/Event";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EventsView = ({ LoggedInUser }) => {
-	const [selectedTab, setSelectedTab] = useState('organized');
+	const [selectedTab, setSelectedTab] = useState('planned');
 	const [events, setEvents] = useState([]);
 
 	useEffect(() => {
@@ -35,6 +36,7 @@ const EventsView = ({ LoggedInUser }) => {
 		}
 		else if (selectedTab === "planned") {
 			if (LoggedInUser) {
+				console.log("Ligne 39: " + LoggedInUser)
 				GetPlannedEvents(LoggedInUser)
 					.then(response => {
 						console.log(JSON.stringify(response));
@@ -47,7 +49,7 @@ const EventsView = ({ LoggedInUser }) => {
 					})
 			}
 			else {
-				const defaultUser = JSON.parse(AsyncStorage.getItem('DefaultUser'));
+				/*const defaultUser = JSON.parse(AsyncStorage.getItem('DefaultUser'));
 				if (defaultUser) {
 					GetPlannedEvents(defaultUser)
 						.then(response => {
@@ -59,7 +61,7 @@ const EventsView = ({ LoggedInUser }) => {
 								setEvents([])
 							}
 						})
-				}
+				}*/
 			}
 		}
 	}, [selectedTab]);
