@@ -1,12 +1,10 @@
 # sportilize
 
-![Logo sportilize](assets/logo_complete.svg)
+> PLD-SMART 4IF INSA Lyon. Social sport event management app. 
 
-PLD-SMART 4IF INSA Lyon. Social sport event management app.
-
-[![asciicast](https://asciinema.org/a/113463.png)](https://asciinema.org/a/113463)
-
-[![Watch the video of the project (french)](docs/img/sportilize thumbnail)](https://youtu.be/q7FfPNPCd_g)
+<a href="https://youtu.be/q7FfPNPCd_g">
+  <image src="docs/img/sportilize_thumbnail.png"/>
+</a>
 
 ## Hexanôme H4222 (original contributors)
 
