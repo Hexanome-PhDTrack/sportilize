@@ -26,6 +26,7 @@ export default defaultUserPrompt = ({ isDefaultUserPromptVisible, setIsDefaultUs
                 AsyncStorage.setItem('DefaultUser', JSON.stringify(newDefaultUser));
                 setDefaultUser(newDefaultUser);
                 setIsDefaultUserPromptVisible(false);
+                setDefaultUserName("");
               }
               catch (e) {
                 throw Error('Saving default user information to local storage failed: ' + e)

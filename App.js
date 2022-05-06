@@ -11,6 +11,7 @@ import Auth from "./Screens/LoginSigunp";
 import Dashboard from "./Screens/Dashboard";
 import LoadingScreen from "./Screens/LoadingScreen";
 import AppContext from './AppContext';
+import DefaultUserContext from './DefaultUserContext';
 
 ModalService.setShouldUseTopInsets = true
 
@@ -42,30 +43,42 @@ const App = () => {
     if (LoggedUser) {
       setLoggedInUser(LoggedUser);
     }
-    
+
     NavigateToScreen("Dashboard");
   }, []);
+
+  useEffect(async () => {
+    if (!defaultUser) {
+      const defaultUserFromStorage = JSON.parse(await AsyncStorage.getItem('DefaultUser'));
+      if (!defaultUserFromStorage) {
+        setIsDefaultUserPromptVisible(true);
+      }
+    }
+  }, [defaultUser])
 
   return (
     <>
       <ApplicationProvider {...eva} theme={eva.light}>
         <AppContext.Provider value={setLoggedInUser}>
-          <DefaultUserPrompt isDefaultUserPromptVisible={isDefaultUserPromptVisible} setIsDefaultUserPromptVisible={setIsDefaultUserPromptVisible} setDefaultUser={setDefaultUser} />
-          <IconRegistry icons={EvaIconsPack} />
-          {CurrentScreen == "Loading" && <LoadingScreen />}
-          {
-            CurrentScreen == "Authentication" && (
-              <Auth NavigateToScreen={NavigateAfterLogin} />
-            )
-          }
-          {
-            CurrentScreen == "Dashboard" && (
-              <Dashboard
-                LoggedInUser={LoggedInUser}
-                NavigateToScreen={NavigateToScreen}
-              />
-            )
-          }
+          <DefaultUserContext.Provider value={setDefaultUser}>
+            <DefaultUserPrompt isDefaultUserPromptVisible={isDefaultUserPromptVisible} setIsDefaultUserPromptVisible={setIsDefaultUserPromptVisible} setDefaultUser={setDefaultUser} />
+            <IconRegistry icons={EvaIconsPack} />
+            {CurrentScreen == "Loading" && <LoadingScreen />}
+            {
+              CurrentScreen == "Authentication" && (
+                <Auth NavigateToScreen={NavigateAfterLogin} />
+              )
+            }
+            {
+              CurrentScreen == "Dashboard" && (
+                <Dashboard
+                  LoggedInUser={LoggedInUser}
+                  NavigateToScreen={NavigateToScreen}
+                  DefaultUser={defaultUser}
+                />
+              )
+            }
+          </DefaultUserContext.Provider>
         </AppContext.Provider>
       </ApplicationProvider>
     </>

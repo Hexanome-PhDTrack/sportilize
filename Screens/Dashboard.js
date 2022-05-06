@@ -15,9 +15,10 @@ import ProfileEditPassword from "./Profile/ProfileEditPassword";
 import UserEventsList from "./Events/UserEventsList";
 import EventDetailsScreen from "./Events/EventDetailsScreen";
 import InfrastructureEvents from "./InfrastructureEvents/InfrastructureEvents";
+import Settings from './Settings/Settings';
 
 const Stack = createStackNavigator();
-const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
+const Dashboard = ({ NavigateToScreen, LoggedInUser, DefaultUser }) => {
   // put all screens here as Stack.Screen
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -36,11 +37,12 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
           <Stack.Screen name="UserEventsList" component={UserEventsList} initialParams={LoggedInUser} />
           <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
           <Stack.Screen name="InfrastructureEvents" component={InfrastructureEvents} />
+          <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="CreateEvent">
             {(props) => <CreateEvent {...props} LoggedInUser={LoggedInUser} />}
           </Stack.Screen>
         </Stack.Navigator>
-        <Footer LoggedInUser={LoggedInUser}/>
+        <Footer LoggedInUser={LoggedInUser} DefaultUser={DefaultUser}/>
       </NavigationContainer>
     </SafeAreaView>
   );
