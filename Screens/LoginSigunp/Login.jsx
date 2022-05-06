@@ -32,6 +32,9 @@ const Login = ({ navigation }) => {
           setshowSucces(true);
           //storing user Data in cache
           await AsyncStorage.setItem("LoggedUser", JSON.stringify(response));
+
+          console.log(await AsyncStorage.getItem("LoggedUser"));
+          console.log(response);
           setLoggedInUser(response);
           navigation.navigate("Map");
         } else {

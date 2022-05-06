@@ -16,8 +16,10 @@ export default defaultUserPrompt = ({ isDefaultUserPromptVisible, setIsDefaultUs
           uuid: uuid.v4(),
           username: defaultUserName
         }
+        console.log(newDefaultUser);
         addDefaultUser(newDefaultUser)
           .then(response => {
+            console.log(response)
             if (!response.ok) {
               throw Error('Network response was not ok')
             }

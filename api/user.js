@@ -3,7 +3,7 @@ const infrastructures =
   "https://sportilize.herokuapp.com/api/v1/infrastructures/get_all_infrastructures";
 
 export const addDefaultUser = async(newUser) => {
-  return post('users/new_user', newUser);
+  return post('users/new_user', undefined, newUser);
 }
 
 export const editUser = async(newInfo, LoggedUser) => {
