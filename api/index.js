@@ -2,13 +2,25 @@ const BASE_URL = "https://sportilize.herokuapp.com/api/v1/";
 const LyonApi =
   "https://download.data.grandlyon.com/ws/grandlyon/adr_voie_lieu.adrequipsportpct/all.json?maxfeatures=100&start=1";
 
-export const get = (url, params) =>
-  fetch(BASE_URL + url, {
+export const get = async(url, params) => {
+  const res = await fetch(BASE_URL + url, {
     method: "GET",
     ...params,
+    headers: {
+      ...(params && params.headers),
+      "Content-Type": "application/json",
+    }
   });
 
-export const deleteReq = async(url, params, body) => {
+  try {
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    return res;
+  }
+}
+
+export const deleteReq = async (url, params, body) => {
   const res = await fetch(BASE_URL + url, {
     method: "DELETE",
     ...params,

@@ -1,3 +1,5 @@
+import { get, post } from "./index";
+
 const BASE_URL = "https://sportilize.herokuapp.com/api/v1/";
 export const CreateAnEvent = async (data, LoggedUser) => {
   const res = await fetch(BASE_URL + "events/create", {
@@ -21,3 +23,24 @@ export const GetSports = async () => {
   const data = await res.json();
   return data.map((s) => s.name);
 };
+
+export const GetPlannedEvents = async (User) => {
+  const queryParams = {
+    uuid: User.uuid
+  }
+  const params = new URLSearchParams(queryParams).toString();
+  console.log("URL: " + "events/get_events_to_participate?" + params);
+  return get("events/get_events_to_participate?" + params, undefined);
+}
+
+export const GetCreatedEvents = async (LoggedUser) => {
+  return get("events/get_organized_by_user", {headers: {Cookie: LoggedUser.Cookie}});
+}
+
+export const ParticipateInEvent = async (event, User) => {
+  return post("events/participate", null, {userUuid: User.uuid, eventId: event.id})
+}
+
+export const WithdrawFromEvent = async (event, User) => {
+  return post("events/withdraw", null, {userUuid: User.uuid, eventId: event.id})
+}

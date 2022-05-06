@@ -12,17 +12,27 @@ import {
     SelectItem,
     Datepicker,
 } from "@ui-kitten/components";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import EventsItem from "./EventsItem";
+
+const DynamicEventsList = ({ events, LoggedInUser }) => {
+    return (
+        <ScrollView>
+            {
+                events.map((event) => {
+                    return (
+                        <EventsItem key={event.id} event={event} LoggedInUser={LoggedInUser} />
+                    )
+                })
+            }
+        </ScrollView>
+    )
+}
 
 const EventsList = ({ events }) => {
     return (
         <View style={styles.list}>
-            {events && events.map((event) => {
-                return (
-                    <EventsItem key={event.id} event={event} />
-                )
-            })}
+            {events !== undefined ? <DynamicEventsList events={events}/> : <></>}
         </View>
     );
 };

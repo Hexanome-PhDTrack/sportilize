@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, ScrollView } from "react-native";
+import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
+import Toast from 'react-native-simple-toast';
 import { Text, Icon, Datepicker, Input, Button } from "@ui-kitten/components";
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
+import { ParticipateInEvent, WithdrawFromEvent } from "../../api/Event";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const EventDetails = () => {
-
-
-	const event = {
-		id: 1,
-		name: "Can 2022",
-		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non convallis diam. Nulla congue metus sit amet turpis dignissim commodo. Nullam arcu nibh, vulputate sed tellus non, suscipit faucibus tellus. Proin ac porttitor est. Sed scelerisque felis ut bibendum viverra. Nam semper lorem metus, ut dignissim ex gravida non. Donec facilisis eros arcu, ut fringilla mi suscipit at. ",
-		beginDate: new Date(),
-		endDate: new Date(),
-	}
-
-
+const EventDetails = ({ event, LoggedInUser }) => {
+	event = { ...event, beginDate: new Date(event.beginDate), endDate: new Date(event.endDate) };
 	const eventConfig = {
 		title: event.name,
 		startDate: event.beginDate,
@@ -35,6 +28,99 @@ const EventDetails = () => {
 	const renderCalendarIcon = () => (
 		<Icon style={styles.icon} name="calendar-outline" fill="#000000" />
 	);
+
+	const onParticipate = () => {
+		if (LoggedInUser) {
+			ParticipateInEvent(event, LoggedInUser)
+				.then(response => {
+					if (response) {
+						if(response.status && response.status !== 200){
+							throw Error("Failure while trying to register participation")
+						}
+						else if (Platform.OS === 'android') {
+							Toast.show("Your participation was registered");
+						}
+					}
+					else {
+						throw Error("Failure while trying to register participation")
+					}
+				})
+				.catch(error => {
+					if (Platform.OS === 'android') {
+						Toast.show("" + error);
+					}
+				});
+		}
+		else {
+			const defaultUser = AsyncStorage.getItem("DefaultUser");
+			if (defaultUser) {
+				ParticipateInEvent(event, defaultUser)
+					.then(response => {
+						if (response) {
+							if(response.status && response.status !== 200){
+								throw Error("Failure while trying to register participation")
+							}
+							else if (Platform.OS === 'android') {
+								Toast.show("Your participation was registered");
+							}
+						}
+						else {
+							throw Error("Failure while trying to register participation")
+						}
+					})
+					.catch(error => {
+						if (Platform.OS === 'android') {
+							Toast.show("" + error);
+						}
+					});
+			}
+		}
+	}
+
+	const onCancel = () => {
+		if (LoggedInUser) {
+			WithdrawFromEvent(event, LoggedInUser)
+				.then(response => {
+					console.log(response.status);
+					if (response.status === 200) {
+						if (Platform.OS === 'android') {
+							Toast.show("Your participation was registered");
+						}
+					}
+					else {
+						throw Error("Failure while trying to register participation")
+					}
+				})
+				.catch(error => {
+					if (Platform.OS === 'android') {
+						Toast.show("" + error);
+					}
+				});;
+		}
+		else {
+			const defaultUser = AsyncStorage.getItem("DefaultUser");
+			if (defaultUser) {
+				WithdrawFromEvent(event, defaultUser)
+					.then(response => {
+						console.log(response.status);
+						if (response.status === 200) {
+							if (Platform.OS === 'android') {
+								Toast.show("Your participation was registered");
+							}
+						}
+						else {
+							throw Error("Failure while trying to register participation")
+						}
+					})
+					.catch(error => {
+						if (Platform.OS === 'android') {
+							Toast.show("" + error);
+						}
+					});;
+			}
+		}
+	}
+
 	return (
 		<KeyboardAvoidingView style={{ flex: 1 }}>
 			<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -96,8 +182,8 @@ const EventDetails = () => {
 						<Text category="h4"> Attendees </Text>
 						<Text>{event.numberParticipants} </Text>
 						<View style={styles.attendeesButtons}>
-							<Button style={{ width: '45%', margin: 10, backgroundColor: "green" }}>Participate</Button>
-							<Button style={{ width: '45%', margin: 10, backgroundColor: "red" }}>Cancel</Button>
+							<Button style={{ width: '45%', margin: 10, backgroundColor: "green" }} onPress={onParticipate}>Participate</Button>
+							<Button style={{ width: '45%', margin: 10, backgroundColor: "red" }} onPress={onCancel}>Cancel</Button>
 						</View>
 					</View>
 				</View>

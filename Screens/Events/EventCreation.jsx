@@ -28,7 +28,7 @@ const checkProperties = (obj) => {
   return arr.includes(false);
 };
 
-const CreateEvent = ({ route, navigation, LoggedInUser}) => {
+const CreateEvent = ({ route, navigation, LoggedInUser }) => {
   const [selectedIndex, setSelectedIndex] = useState([new IndexPath(0)]);
   const [SportList, setSportsList] = useState([]);
   const [LoadingVisible, setLoadingVisibility] = useState(true);
@@ -41,17 +41,39 @@ const CreateEvent = ({ route, navigation, LoggedInUser}) => {
 
   const [userInput, setUserInput] = useState({
     creator: LoggedInUser.uuid,
-    EventName: "",
+    name: "",
     sports: [],
-    beginDate: "",
-    endDate: "",
+    beginDate: new Date(),
+    endDate: new Date(),
     participantsNumber: "",
     description: "",
     infrastructureId: route.params.id,
   });
 
   const HandleUserInput = (Input, Name) => {
-    setUserInput({ ...userInput, [Name]: Input });
+    if (Name === "StartHour") {
+      const newStartDate = userInput.beginDate;
+      newStartDate.setHours(Number(Input));
+      setUserInput({ ...userInput, beginDate: newStartDate });
+    }
+    else if (Name === "StartMinute") {
+      const newStartDate = userInput.beginDate;
+      newStartDate.setMinutes(Number(Input));
+      setUserInput({ ...userInput, beginDate: newStartDate });
+    }
+    else if (Name === "EndHour") {
+      const newEndDate = userInput.endDate;
+      newEndDate.setHours(Number(Input));
+      setUserInput({ ...userInput, endDate: newEndDate });
+    }
+    else if (Name === "EndMinute") {
+      const newEndDate = userInput.endDate;
+      newEndDate.setMinutes(Number(Input));
+      setUserInput({ ...userInput, endDate: newEndDate });
+    }
+    else{
+      setUserInput({ ...userInput, [Name]: Input });
+    }
   };
 
   let selectedSports = [];
@@ -68,7 +90,7 @@ const CreateEvent = ({ route, navigation, LoggedInUser}) => {
       try {
         const response = await CreateAnEvent(userInput, LoggedInUser);
         if (response.ok) {
-          if(Platform.OS === 'android'){
+          if (Platform.OS === 'android') {
             Toast.show("Successfully created event");
           }
           navigation.navigate("Map");
@@ -97,7 +119,7 @@ const CreateEvent = ({ route, navigation, LoggedInUser}) => {
               <Input
                 style={styles.Input}
                 placeholder="Event name"
-                onChangeText={(text) => HandleUserInput(text, "EventName")}
+                onChangeText={(text) => HandleUserInput(text, "name")}
               />
             </View>
             <View style={styles.FormItem}>
@@ -184,7 +206,7 @@ const CreateEvent = ({ route, navigation, LoggedInUser}) => {
       >
         <Icon style={styles.icon} fill="#000" name="arrow-back-outline" />
       </TouchableOpacity>
-      {LoadingVisible &&   <LoadingBlockScreen />}
+      {LoadingVisible && <LoadingBlockScreen />}
 
     </KeyboardAvoidingView>
   );
