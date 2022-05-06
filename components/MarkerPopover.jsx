@@ -31,7 +31,10 @@ const MarkerPopover = ({
         </Text>
         {/* use the navigation prop to navigate to screens on button press */}
         <Button style={{ margin: 3 }}>View details</Button>
-        <Button style={{ margin: 3 }}>View Events</Button>
+        <Button style={{ margin: 3 }} onPress={() => {
+          setModalVisible(false);
+          navigation.navigate("InfrastructureEvents", {infrastructure: infrastructure, LoggedInUser: LoggedInUser});
+        }}>View Events</Button>
         <Button style={{ margin: 3 }} disabled={!LoggedInUser} onPress={() => {
           setModalVisible(false);
           navigation.navigate("CreateEvent", { ...infrastructure });

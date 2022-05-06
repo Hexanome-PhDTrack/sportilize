@@ -44,3 +44,7 @@ export const ParticipateInEvent = async (event, User) => {
 export const WithdrawFromEvent = async (event, User) => {
   return post("events/withdraw", null, {userUuid: User.uuid, eventId: event.id})
 }
+
+export const GetInfrastructureNotClosedEvents = async (infrastructure) => {
+  return get("events/list_events_not_closed_by_infrastructure?id=" + infrastructure.id, undefined)
+}

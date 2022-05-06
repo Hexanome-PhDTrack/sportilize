@@ -14,6 +14,7 @@ import ProfileEditInfo from "./Profile/ProfileEditInfo";
 import ProfileEditPassword from "./Profile/ProfileEditPassword";
 import UserEventsList from "./Events/UserEventsList";
 import EventDetailsScreen from "./Events/EventDetailsScreen";
+import InfrastructureEvents from "./InfrastructureEvents/InfrastructureEvents";
 
 const Stack = createStackNavigator();
 const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
@@ -34,6 +35,7 @@ const Dashboard = ({ NavigateToScreen, LoggedInUser }) => {
           <Stack.Screen name="ProfileEditPassword" component={ProfileEditPassword} />
           <Stack.Screen name="UserEventsList" component={UserEventsList} initialParams={LoggedInUser} />
           <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
+          <Stack.Screen name="InfrastructureEvents" component={InfrastructureEvents} />
           <Stack.Screen name="CreateEvent">
             {(props) => <CreateEvent {...props} LoggedInUser={LoggedInUser} />}
           </Stack.Screen>
