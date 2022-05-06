@@ -24,7 +24,6 @@ export default InfrastructureEvents = ({ route, navigation }) => {
             <ScrollView contentContainerStyle={{ backgroundColor: "#FFFFFF", flexGrow: 1 }}>
                 {
                     events.map((event) => {
-                        console.log(event);
                         return (<EventsItem key={event.id} event={event} LoggedInUser={LoggedInUser} />)
                     })
                 }
